@@ -12,8 +12,9 @@ const generateReDirectedURL = async(req,res) => {
         reDirectUrl : url,
         visitHistory: []
     })
+    const allUrl = await urlModel.find();
 
-    return res.status(201).json({status:201 , message: "Re-directed", shortId: shortId})
+    return res.render("home", {id:shortId, allUrl})
 }
 
 
@@ -25,15 +26,8 @@ const handleURLClicks = async(req,res) => {
     res.status(200).json({clicks: url.visitHistory.length , history: url.visitHistory});
 }
 
-const updateServerSideRendering = async(req,res) => {
-        const allUrl = await urlModel.find();
-        return res.status(200).render("index", {
-            allUrl
-        });
-}
 
 module.exports = {
     generateReDirectedURL,
     handleURLClicks,
-    updateServerSideRendering
 }
