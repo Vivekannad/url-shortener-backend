@@ -2,12 +2,16 @@ const express = require("express");
 const connect = require("./db/connect")
 const app = express();
 const urlModel = require("./models/url")
+const path = require("path");
 
 const PORT = 4999;
 
 connect();
 
 app.use(express.json())
+app.set("view engine", "ejs");
+// app.use("views", path.resolve("./views"));
+
 
 app.use("/", require("./routes/url"));
 

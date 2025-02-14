@@ -25,7 +25,15 @@ const handleURLClicks = async(req,res) => {
     res.status(200).json({clicks: url.visitHistory.length , history: url.visitHistory});
 }
 
+const updateServerSideRendering = async(req,res) => {
+        const allUrl = await urlModel.find();
+        return res.status(200).render("index", {
+            allUrl
+        });
+}
+
 module.exports = {
     generateReDirectedURL,
-    handleURLClicks
+    handleURLClicks,
+    updateServerSideRendering
 }
