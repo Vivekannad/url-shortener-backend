@@ -1,9 +1,10 @@
 const urlModel = require("../models/url");
 
 const handleAllUrl = async(req,res) => {
-    const allUrl = await urlModel.find();
+    if(!req.user) return res.redirect("/login");
+    const allUrl = await urlModel.find({createdBy : req.user._id});
     res.status(200).render("home", {
-        allUrl 
+        allUrl
     });
 }
 

@@ -6,10 +6,19 @@ const restrictToLoggedInUsersOnly = (req,res,next) => {
 
     const user = getUser(cookie);
     if(!user) return res.status(400).redirect("/login");
-    console.log(user);
+    req.user = user;
+    next();
+}
+
+const checkAuth = (req,res,next) => {
+    const cookie = req.cookies.uid;
+
+    const user = getUser(cookie);
+    req.user = user;
     next();
 }
 
 module.exports = {
-    restrictToLoggedInUsersOnly
+    restrictToLoggedInUsersOnly,
+    checkAuth
 }

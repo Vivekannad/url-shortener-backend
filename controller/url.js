@@ -10,11 +10,12 @@ const generateReDirectedURL = async(req,res) => {
     await urlModel.create({
         shortId : shortId,
         reDirectUrl : url,
-        visitHistory: []
-    })
-    const allUrl = await urlModel.find();
+        visitHistory: [],
+        createdBy : req.user._id
+    });
+    // const allUrl = await urlModel.find();
 
-    return res.render("home", {id:shortId, allUrl})
+    return res.render("home", {id:shortId})
 }
 
 
