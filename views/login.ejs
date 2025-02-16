@@ -11,5 +11,8 @@
         <input type="text" placeholder="password" name="password">
         <button>Log in</button>
     </form>
+    <% if (locals.error) { %>
+        <p><%= error %></p>
+    <% } %>
 </body>
 </html>

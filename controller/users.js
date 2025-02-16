@@ -19,7 +19,9 @@ const handleLogIn = async(req,res) => {
     const {email , password} = req.body;
     if(!email || !password) return res.status(400).json({message : "Credentials not filled!"});
     const user = await userModel.findOne({userEmail : email , userPassword : password});
-    if(!user) return res.status(400).redirect("/login");
+    if(!user) return res.render("login", {
+        error : "Email or password incorrect"
+    });
     const userId = uuidv4();
     setUsers(userId , user);
     res.cookie("uid",userId);
