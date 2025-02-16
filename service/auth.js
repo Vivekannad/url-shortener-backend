@@ -22,7 +22,8 @@ const setUsers = ( user) => {
    return jwt.sign({
     _id : user._id,
     name : user.userName ,
-    email : user.userEmail
+    email : user.userEmail,
+    role : user.role
    }, process.env.SECRET_KEY );
 };
 

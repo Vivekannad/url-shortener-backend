@@ -2,7 +2,7 @@ const express = require("express");
 const connect = require("./db/connect")
 const app = express();
 const cookieParser = require("cookie-parser");
-const { restrictToLoggedInUsersOnly, checkAuth } = require("./middleware/users");
+const { checkAuthentication, restrictTo } = require("./middleware/users");
 const PORT = 4999;
 
 connect();
@@ -10,13 +10,14 @@ connect();
 app.use(express.json()) // to parse body data
 app.use(express.urlencoded({extended: false}))  // to parse form data
 app.use(cookieParser()) // to parse the cookies
+app.use(checkAuthentication);
 app.set("view engine", "ejs");
 // app.use("views", path.resolve("./views"));
 
 
-app.use("/url", restrictToLoggedInUsersOnly , require("./routes/url"));
+app.use("/url", restrictTo(["NORMAL"]),  require("./routes/url"));
 app.use("/auth", require("./routes/users"));
-app.use("/", checkAuth , require("./routes/staticRoute"));
+app.use("/",  require("./routes/staticRoute"));
 
 app.listen(PORT , () => {
     console.log(`server is running on PORT ${PORT}`);

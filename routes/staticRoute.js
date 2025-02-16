@@ -1,8 +1,11 @@
-const { handleAllUrl, handleOneUrl, renderSignUp, renderLogIn } = require("../controller/staticRender");
+const { handleAllUrl, handleOneUrl, renderSignUp, renderLogIn, handleADMINurls } = require("../controller/staticRender");
+const { restrictTo } = require("../middleware/users");
 
 const router = require("express").Router();
 
-router.get("/", handleAllUrl )
+router.get("/", restrictTo(["NORMAL","ADMIN"]) , handleAllUrl );
+
+router.get("/allurl", restrictTo("ADMIN"), handleADMINurls )
 
 router.get("/signup", renderSignUp );
 
