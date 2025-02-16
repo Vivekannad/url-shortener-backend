@@ -22,9 +22,10 @@ const handleLogIn = async(req,res) => {
     if(!user) return res.render("login", {
         error : "Email or password incorrect"
     });
-    const userId = uuidv4();
-    setUsers(userId , user);
-    res.cookie("uid",userId);
+    // const userId = uuidv4();
+    // setUsers(userId , user);
+    const token = setUsers(user);
+    res.cookie("token", token );
     res.redirect("/");
 } 
 
