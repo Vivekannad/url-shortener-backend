@@ -12,7 +12,6 @@ app.use(express.urlencoded({extended: false}))  // to parse form data
 app.use(cookieParser()) // to parse the cookies
 app.use(checkAuthentication);
 app.set("view engine", "ejs");
-// app.use("views", path.resolve("./views"));
 
 
 app.use("/url", restrictTo(["NORMAL"]),  require("./routes/url"));
